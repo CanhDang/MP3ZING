@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewAlbums: UIViewController {
+class ViewAlbums: ViewControllerCollectionBase {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,14 +8,41 @@
 
 import UIKit
 
-class ListView: UITableView {
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+class ListView: UITableView, UITableViewDelegate, UITableViewDataSource {
+    
+    var delegateSelected: SelectedItem!
+    var items = [Label]()
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
-    */
+    
+    override init(frame: CGRect, style: UITableViewStyle) {
+        super.init(frame: frame, style: style)
+        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.delegate = self
+        self.dataSource = self
+    }
+//#MARK: DataSource
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = self.dequeueReusableCellWithIdentifier("Cell")
 
+        let currentItem = items[indexPath.row]
+        cell!.textLabel!.text = currentItem.displayName
+        cell!.textLabel?.textAlignment = .Center
+        return cell!
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.delegateSelected.selectedOrder!(items[indexPath.row].id)
+        tableView.hidden = true 
+    }
 }

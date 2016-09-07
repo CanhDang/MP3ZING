@@ -7,3 +7,18 @@
 //
 
 import Foundation
+import CoreGraphics
+
+enum Type {
+    case SONGS
+    case ALBUMS
+    case ARTISTS
+    case PLAYLIST
+    case GENRE
+    case CELL
+    case NONE
+}
+
+@objc protocol SelectedItem {
+    optional func selectedOrder(id: Int)
+}

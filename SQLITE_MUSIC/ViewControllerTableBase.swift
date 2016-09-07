@@ -8,28 +8,44 @@
 
 import UIKit
 
-class ViewControllerTableBase: UIViewController {
-
+class ViewControllerTableBase: ViewControllerBase {
+    
+    var myTableView: UITableView!
+    var nameArtists = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        addTableView()
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func getArtistWithSongID(){
+        for song in items {
+            
+            let detail = dataBase.viewDataBase("DETAILALBUM", columns: ["ARTISTS.ArtistName"], statement: "JOIN ARTISTS on DETAILALBUM.ArtistID = ARTISTS.ID where SONGID = \(song["ID"]!)")
+            
+            nameArtists.append(detail.first!["ArtistName"] as! String)
+ 
+        }
     }
-    */
-
+    
+    
+    func addTableView(){
+        myTableView = UITableView()
+        myTableView.backgroundColor = UIColor.brownColor()
+        myTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.view.addSubview(myTableView)
+        
+        self.myTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let cn1 = NSLayoutConstraint(item: myTableView, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1.0, constant: 0)
+        
+        let cn2 = NSLayoutConstraint(item: myTableView, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1.0, constant: 0)
+        
+        let cn3 = NSLayoutConstraint(item: myTableView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1.0, constant: 104)
+        
+        let cn4 = NSLayoutConstraint(item: myTableView, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0)
+        
+        NSLayoutConstraint.activateConstraints([cn1, cn2, cn3, cn4])
+        
+    }
 }

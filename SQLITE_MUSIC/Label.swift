@@ -7,3 +7,9 @@
 //
 
 import Foundation
+struct Label {
+    var displayName: String!
+    var id: Int!
+    var column: String!
+    
+}

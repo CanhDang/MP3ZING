@@ -8,6 +8,7 @@
 
 #ifndef SQLITE_MUSIC_Briding_Header_h
 #define SQLITE_MUSIC_Briding_Header_h
-
+#import <sqlite3.h>
+#import "FMDB.h"
 
 #endif /* SQLITE_MUSIC_Briding_Header_h */
